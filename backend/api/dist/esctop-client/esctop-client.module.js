@@ -6,19 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.EsctopClientModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
-const esctop_client_module_1 = require("./esctop-client/esctop-client.module");
-let AppModule = class AppModule {
+const esctop_client_service_1 = require("./esctop-client.service");
+const esctop_client_controller_1 = require("./esctop-client.controller");
+let EsctopClientModule = class EsctopClientModule {
 };
-AppModule = __decorate([
+EsctopClientModule = __decorate([
     (0, common_1.Module)({
-        imports: [esctop_client_module_1.EsctopClientModule],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        controllers: [esctop_client_controller_1.EsctopClientController],
+        providers: [esctop_client_service_1.EsctopClientService]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], EsctopClientModule);
+exports.EsctopClientModule = EsctopClientModule;
+//# sourceMappingURL=esctop-client.module.js.map
