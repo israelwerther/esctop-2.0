@@ -4,9 +4,9 @@ import { UpdateEsctopClientDto } from './dto/update-esctop-client.dto';
 export declare class EsctopClientController {
     private readonly esctopClientService;
     constructor(esctopClientService: EsctopClientService);
-    create(createEsctopClientDto: CreateEsctopClientDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateEsctopClientDto: UpdateEsctopClientDto): string;
-    remove(id: string): string;
+    create(createEsctopClientDto: CreateEsctopClientDto): Promise<import("typeorm").InsertResult>;
+    findAll(): Promise<import("./entities/esctop-client.entity").EsctopClient[]>;
+    findOne(id: string): Promise<import("./entities/esctop-client.entity").EsctopClient>;
+    update(id: string, updateEsctopClientDto: UpdateEsctopClientDto): Promise<import("typeorm").UpdateResult>;
+    remove(id: string): Promise<import("typeorm").DeleteResult>;
 }

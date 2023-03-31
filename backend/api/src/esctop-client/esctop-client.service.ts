@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateEsctopClientDto } from './dto/create-esctop-client.dto';
 import { UpdateEsctopClientDto } from './dto/update-esctop-client.dto';
+import { EsctopClient } from './entities/esctop-client.entity';
 
 @Injectable()
 export class EsctopClientService {
-  create(createEsctopClientDto: CreateEsctopClientDto) {
-    return 'This action adds a new esctopClient';
+  constructor(@InjectRepository(EsctopClient) private readonly repo: Repository<EsctopClient>){    
   }
 
-  findAll() {
-    return `This action returns all esctopClient`;
+  async create(createEsctopClientDto: CreateEsctopClientDto) {
+    console.log("============", createEsctopClientDto)
+    const slug = createEsctopClientDto.corporateName.split(" ").join('_').toLowerCase();
+    return await this.repo.insert({ ...createEsctopClientDto, slug });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} esctopClient`;
+  async findAll() {
+    return await this.repo.find();
   }
 
-  update(id: number, updateEsctopClientDto: UpdateEsctopClientDto) {
-    return `This action updates a #${id} esctopClient`;
+  async findOne(id: number) {
+    const post = await this.repo.findOne({where: {id}});
+    if(!post){
+      throw new BadRequestException('Post not found');
+    }
+    return post;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} esctopClient`;
+  async update(id: number, updateEsctopClientDto: UpdateEsctopClientDto) {
+    return await this.repo.update(id, updateEsctopClientDto);
+  }
+
+  async remove(id: number) {
+    return await this.repo.delete(id);
   }
 }

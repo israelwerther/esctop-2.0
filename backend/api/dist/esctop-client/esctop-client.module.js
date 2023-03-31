@@ -10,12 +10,17 @@ exports.EsctopClientModule = void 0;
 const common_1 = require("@nestjs/common");
 const esctop_client_service_1 = require("./esctop-client.service");
 const esctop_client_controller_1 = require("./esctop-client.controller");
+const typeorm_1 = require("@nestjs/typeorm");
+const esctop_client_entity_1 = require("./entities/esctop-client.entity");
 let EsctopClientModule = class EsctopClientModule {
 };
 EsctopClientModule = __decorate([
     (0, common_1.Module)({
         controllers: [esctop_client_controller_1.EsctopClientController],
-        providers: [esctop_client_service_1.EsctopClientService]
+        providers: [esctop_client_service_1.EsctopClientService],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([esctop_client_entity_1.EsctopClient])
+        ]
     })
 ], EsctopClientModule);
 exports.EsctopClientModule = EsctopClientModule;
