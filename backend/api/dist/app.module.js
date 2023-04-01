@@ -12,6 +12,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const esctop_client_module_1 = require("./esctop-client/esctop-client.module");
+const loan_module_1 = require("./loan/loan.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,6 +29,7 @@ AppModule = __decorate([
                 autoLoadEntities: true,
                 synchronize: true
             }),
+            loan_module_1.LoanModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

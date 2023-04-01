@@ -11,10 +11,9 @@ export class EsctopClientService {
   }
 
   async create(createEsctopClientDto: CreateEsctopClientDto) {
-    console.log("============", createEsctopClientDto)
     const slug = createEsctopClientDto.corporateName.split(" ").join('_').toLowerCase();
     return await this.repo.insert({ ...createEsctopClientDto, slug });
-  }
+  }  
 
   async findAll() {
     return await this.repo.find();
@@ -23,7 +22,7 @@ export class EsctopClientService {
   async findOne(id: number) {
     const post = await this.repo.findOne({where: {id}});
     if(!post){
-      throw new BadRequestException('Post not found');
+      throw new BadRequestException('Client esctop not found');
     }
     return post;
   }
@@ -36,3 +35,22 @@ export class EsctopClientService {
     return await this.repo.delete(id);
   }
 }
+
+
+
+
+// async create(createEsctopClientDto: CreateEsctopClientDto) {
+//   for (let i = 0; i < 5; i++) {
+//     const createEsctopClientDto: CreateEsctopClientDto = {
+//       corporateName: "Teste " + (i + 1),
+//       fantasyName: "Teste " + (i + 1),
+//       cnpj: "Teste " + (i + 1),
+//       foundation: new Date("2023-03-28 21:01:28"),
+//       stateRegistration: "Teste " + (i + 1),
+//       municipalRegistration: "Teste " + (i + 1),
+//     };
+//     console.log("Criou = ", createEsctopClientDto);
+//     const slug = createEsctopClientDto.corporateName.split(" ").join("_").toLowerCase();
+//     await this.repo.insert({ ...createEsctopClientDto, slug });
+//   }
+// }

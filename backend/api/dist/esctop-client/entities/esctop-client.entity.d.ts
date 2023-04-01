@@ -1,3 +1,4 @@
+import { Loan } from "src/loan/entities/loan.entity";
 export declare class EsctopClient {
     id: number;
     corporateName: string;
@@ -9,4 +10,5 @@ export declare class EsctopClient {
     slug: string;
     createdOn: Date;
     modifiedOn: Date;
+    loan: Loan;
 }

@@ -1,34 +1,33 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Loan } from "src/loan/entities/loan.entity"
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity('esctop_client')
 export class EsctopClient {
     @PrimaryGeneratedColumn()
     id: number
-
     @Column()
     corporateName: string
-
     @Column()
     fantasyName: string
-
     @Column()
     cnpj: string
-
     @Column()
     foundation: Date
-
     @Column()
     stateRegistration: string
-
     @Column()
     municipalRegistration: string
-
     @Column()
     slug: string
 
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
-    createdOn: Date
-    
+    createdOn: Date    
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
+
+    @ManyToOne(() => Loan, (loan) => loan.esctop_clients, {
+        eager: true
+    })
+    loan: Loan
+    
 }

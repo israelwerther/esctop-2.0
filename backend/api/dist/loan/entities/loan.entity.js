@@ -9,59 +9,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EsctopClient = void 0;
-const loan_entity_1 = require("../../loan/entities/loan.entity");
+exports.Loan = void 0;
+const esctop_client_entity_1 = require("../../esctop-client/entities/esctop-client.entity");
 const typeorm_1 = require("typeorm");
-let EsctopClient = class EsctopClient {
+let Loan = class Loan {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], EsctopClient.prototype, "id", void 0);
+], Loan.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], EsctopClient.prototype, "corporateName", void 0);
+], Loan.prototype, "contractNumber", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], EsctopClient.prototype, "fantasyName", void 0);
+    __metadata("design:type", Number)
+], Loan.prototype, "amount", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], EsctopClient.prototype, "cnpj", void 0);
+    __metadata("design:type", Number)
+], Loan.prototype, "interestRate", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
-], EsctopClient.prototype, "foundation", void 0);
+], Loan.prototype, "startDate", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Loan.prototype, "installments", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], EsctopClient.prototype, "stateRegistration", void 0);
+], Loan.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], EsctopClient.prototype, "municipalRegistration", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], EsctopClient.prototype, "slug", void 0);
+], Loan.prototype, "slug", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], EsctopClient.prototype, "createdOn", void 0);
+], Loan.prototype, "createdOn", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], EsctopClient.prototype, "modifiedOn", void 0);
+], Loan.prototype, "modifiedOn", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => loan_entity_1.Loan, (loan) => loan.esctop_clients, {
-        eager: true
-    }),
-    __metadata("design:type", loan_entity_1.Loan)
-], EsctopClient.prototype, "loan", void 0);
-EsctopClient = __decorate([
-    (0, typeorm_1.Entity)('esctop_client')
-], EsctopClient);
-exports.EsctopClient = EsctopClient;
-//# sourceMappingURL=esctop-client.entity.js.map
+    (0, typeorm_1.OneToMany)(() => esctop_client_entity_1.EsctopClient, (esctop_client) => esctop_client.loan),
+    __metadata("design:type", Array)
+], Loan.prototype, "esctop_clients", void 0);
+Loan = __decorate([
+    (0, typeorm_1.Entity)('loan')
+], Loan);
+exports.Loan = Loan;
+//# sourceMappingURL=loan.entity.js.map

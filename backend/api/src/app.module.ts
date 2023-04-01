@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EsctopClientModule } from './esctop-client/esctop-client.module';
+import { LoanModule } from './loan/loan.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { EsctopClientModule } from './esctop-client/esctop-client.module';
       autoLoadEntities: true,
       synchronize: true
     }),
+    LoanModule,
   ],
   controllers: [AppController],
   providers: [AppService],
