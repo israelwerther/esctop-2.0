@@ -1,5 +1,5 @@
 import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity('loan')
 export class Loan {
@@ -14,7 +14,9 @@ export class Loan {
     @Column()
     startDate: Date; // data de início do empréstimo
     @Column()
-    installments: number
+    amountOfInstallments: number; // quantidade de prestações
+    @Column()
+    installments: number // Parcelas
     @Column()
     status: string; // status do empréstimo (pago, em andamento, atrasado, etc.)
     @Column()
@@ -24,6 +26,8 @@ export class Loan {
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
 
-    @OneToMany(() => EsctopClient, (esctop_client) => esctop_client.loan)
-    esctop_clients: EsctopClient[]
+    @ManyToOne(() => EsctopClient, (esctop_client) => esctop_client.loans, {
+        eager: true
+    })
+    esctop_clients: EsctopClient
 }

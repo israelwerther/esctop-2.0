@@ -5,10 +5,11 @@ export declare class Loan {
     amount: number;
     interestRate: number;
     startDate: Date;
+    amountOfInstallments: number;
     installments: number;
     status: string;
     slug: string;
     createdOn: Date;
     modifiedOn: Date;
-    esctop_clients: EsctopClient[];
+    esctop_clients: EsctopClient;
 }

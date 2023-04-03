@@ -1,5 +1,5 @@
 import { Loan } from "src/loan/entities/loan.entity"
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity('esctop_client')
 export class EsctopClient {
@@ -21,13 +21,10 @@ export class EsctopClient {
     slug: string
 
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
-    createdOn: Date    
+    createdOn: Date
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
 
-    @ManyToOne(() => Loan, (loan) => loan.esctop_clients, {
-        eager: true
-    })
-    loan: Loan
-    
+    @OneToMany(() => Loan, (loan) => loan.esctop_clients)
+    loans: Loan[]
 }

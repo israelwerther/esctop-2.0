@@ -37,6 +37,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
+], Loan.prototype, "amountOfInstallments", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
 ], Loan.prototype, "installments", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -55,8 +59,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Loan.prototype, "modifiedOn", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => esctop_client_entity_1.EsctopClient, (esctop_client) => esctop_client.loan),
-    __metadata("design:type", Array)
+    (0, typeorm_1.ManyToOne)(() => esctop_client_entity_1.EsctopClient, (esctop_client) => esctop_client.loans, {
+        eager: true
+    }),
+    __metadata("design:type", esctop_client_entity_1.EsctopClient)
 ], Loan.prototype, "esctop_clients", void 0);
 Loan = __decorate([
     (0, typeorm_1.Entity)('loan')

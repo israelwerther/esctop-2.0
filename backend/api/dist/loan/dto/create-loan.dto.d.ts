@@ -3,6 +3,7 @@ export declare class CreateLoanDto {
     amount: number;
     interestRate: number;
     startDate: Date;
+    amountOfInstallments: number;
     installments: number;
     status: string;
 }

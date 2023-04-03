@@ -55,11 +55,9 @@ __decorate([
     __metadata("design:type", Date)
 ], EsctopClient.prototype, "modifiedOn", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => loan_entity_1.Loan, (loan) => loan.esctop_clients, {
-        eager: true
-    }),
-    __metadata("design:type", loan_entity_1.Loan)
-], EsctopClient.prototype, "loan", void 0);
+    (0, typeorm_1.OneToMany)(() => loan_entity_1.Loan, (loan) => loan.esctop_clients),
+    __metadata("design:type", Array)
+], EsctopClient.prototype, "loans", void 0);
 EsctopClient = __decorate([
     (0, typeorm_1.Entity)('esctop_client')
 ], EsctopClient);

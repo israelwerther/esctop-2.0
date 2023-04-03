@@ -29,11 +29,11 @@ let LoanService = class LoanService {
         return await this.repo.find();
     }
     async findOne(id) {
-        const post = await this.repo.findOne({ where: { id } });
-        if (!post) {
+        const loan = await this.repo.findOne({ where: { id } });
+        if (!loan) {
             throw new common_1.BadRequestException('Loan not found');
         }
-        return post;
+        return loan;
     }
     async update(id, updateLoanDto) {
         return this.repo.update(id, updateLoanDto);

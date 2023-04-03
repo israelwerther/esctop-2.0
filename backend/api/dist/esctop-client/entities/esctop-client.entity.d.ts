@@ -10,5 +10,5 @@ export declare class EsctopClient {
     slug: string;
     createdOn: Date;
     modifiedOn: Date;
-    loan: Loan;
+    loans: Loan[];
 }

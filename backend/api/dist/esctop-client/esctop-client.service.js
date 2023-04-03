@@ -29,11 +29,11 @@ let EsctopClientService = class EsctopClientService {
         return await this.repo.find();
     }
     async findOne(id) {
-        const post = await this.repo.findOne({ where: { id } });
-        if (!post) {
+        const esctop_client = await this.repo.findOne({ where: { id } });
+        if (!esctop_client) {
             throw new common_1.BadRequestException('Client esctop not found');
         }
-        return post;
+        return esctop_client;
     }
     async update(id, updateEsctopClientDto) {
         return await this.repo.update(id, updateEsctopClientDto);

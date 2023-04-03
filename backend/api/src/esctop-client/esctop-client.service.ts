@@ -13,18 +13,18 @@ export class EsctopClientService {
   async create(createEsctopClientDto: CreateEsctopClientDto) {
     const slug = createEsctopClientDto.corporateName.split(" ").join('_').toLowerCase();
     return await this.repo.insert({ ...createEsctopClientDto, slug });
-  }  
+  }
 
   async findAll() {
     return await this.repo.find();
   }
 
   async findOne(id: number) {
-    const post = await this.repo.findOne({where: {id}});
-    if(!post){
+    const esctop_client = await this.repo.findOne({where: {id}});
+    if(!esctop_client){
       throw new BadRequestException('Client esctop not found');
     }
-    return post;
+    return esctop_client;
   }
 
   async update(id: number, updateEsctopClientDto: UpdateEsctopClientDto) {
@@ -35,9 +35,6 @@ export class EsctopClientService {
     return await this.repo.delete(id);
   }
 }
-
-
-
 
 // async create(createEsctopClientDto: CreateEsctopClientDto) {
 //   for (let i = 0; i < 5; i++) {
