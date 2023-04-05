@@ -1,7 +1,7 @@
 import { Loan } from "src/loan/entities/loan.entity"
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
-@Entity('esctop_client')
+@Entity('esctopClient')
 export class EsctopClient {
     @PrimaryGeneratedColumn()
     id: number
@@ -25,6 +25,6 @@ export class EsctopClient {
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
 
-    @OneToMany(() => Loan, (loan) => loan.esctop_clients)
+    @OneToMany(() => Loan, (loan) => loan.esctopClient)
     loans: Loan[]
 }

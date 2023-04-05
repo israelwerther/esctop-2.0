@@ -20,11 +20,11 @@ export class EsctopClientService {
   }
 
   async findOne(id: number) {
-    const esctop_client = await this.repo.findOne({where: {id}});
-    if(!esctop_client){
+    const esctopClient = await this.repo.findOne({where: {id}});
+    if(!esctopClient){
       throw new BadRequestException('Client esctop not found');
     }
-    return esctop_client;
+    return esctopClient;
   }
 
   async update(id: number, updateEsctopClientDto: UpdateEsctopClientDto) {
@@ -35,6 +35,22 @@ export class EsctopClientService {
     return await this.repo.delete(id);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // async create(createEsctopClientDto: CreateEsctopClientDto) {
 //   for (let i = 0; i < 5; i++) {

@@ -1,6 +1,6 @@
 import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Exclude } from "class-transformer";
 @Entity('loan')
 export class Loan {
     @PrimaryGeneratedColumn()
@@ -26,8 +26,16 @@ export class Loan {
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
 
-    @ManyToOne(() => EsctopClient, (esctop_client) => esctop_client.loans, {
+    @Column({ default: 1 })
+    @Exclude()
+    esctopClientId: number;
+    @ManyToOne(() => EsctopClient, (esctopClient) => esctopClient.loans, {
         eager: true
     })
-    esctop_clients: EsctopClient
+    @JoinColumn({
+        name: 'esctopClientId',
+        referencedColumnName: 'id'
+    })
+    esctopClient: EsctopClient
+
 }

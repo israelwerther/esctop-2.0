@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Loan = void 0;
 const esctop_client_entity_1 = require("../../esctop-client/entities/esctop-client.entity");
 const typeorm_1 = require("typeorm");
+const class_transformer_1 = require("class-transformer");
 let Loan = class Loan {
 };
 __decorate([
@@ -59,11 +60,20 @@ __decorate([
     __metadata("design:type", Date)
 ], Loan.prototype, "modifiedOn", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => esctop_client_entity_1.EsctopClient, (esctop_client) => esctop_client.loans, {
+    (0, typeorm_1.Column)({ default: 1 }),
+    (0, class_transformer_1.Exclude)(),
+    __metadata("design:type", Number)
+], Loan.prototype, "esctopClientId", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => esctop_client_entity_1.EsctopClient, (esctopClient) => esctopClient.loans, {
         eager: true
     }),
+    (0, typeorm_1.JoinColumn)({
+        name: 'esctopClientId',
+        referencedColumnName: 'id'
+    }),
     __metadata("design:type", esctop_client_entity_1.EsctopClient)
-], Loan.prototype, "esctop_clients", void 0);
+], Loan.prototype, "esctopClient", void 0);
 Loan = __decorate([
     (0, typeorm_1.Entity)('loan')
 ], Loan);

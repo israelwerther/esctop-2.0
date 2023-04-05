@@ -74,6 +74,7 @@ __decorate([
 ], LoanController.prototype, "remove", null);
 LoanController = __decorate([
     (0, common_1.Controller)('loan'),
+    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
     __metadata("design:paramtypes", [loan_service_1.LoanService])
 ], LoanController);
 exports.LoanController = LoanController;

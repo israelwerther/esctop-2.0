@@ -55,11 +55,11 @@ __decorate([
     __metadata("design:type", Date)
 ], EsctopClient.prototype, "modifiedOn", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => loan_entity_1.Loan, (loan) => loan.esctop_clients),
+    (0, typeorm_1.OneToMany)(() => loan_entity_1.Loan, (loan) => loan.esctopClient),
     __metadata("design:type", Array)
 ], EsctopClient.prototype, "loans", void 0);
 EsctopClient = __decorate([
-    (0, typeorm_1.Entity)('esctop_client')
+    (0, typeorm_1.Entity)('esctopClient')
 ], EsctopClient);
 exports.EsctopClient = EsctopClient;
 //# sourceMappingURL=esctop-client.entity.js.map

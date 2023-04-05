@@ -11,5 +11,6 @@ export declare class Loan {
     slug: string;
     createdOn: Date;
     modifiedOn: Date;
-    esctop_clients: EsctopClient;
+    esctopClientId: number;
+    esctopClient: EsctopClient;
 }
