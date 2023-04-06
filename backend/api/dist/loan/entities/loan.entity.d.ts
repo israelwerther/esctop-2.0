@@ -8,9 +8,11 @@ export declare class Loan {
     amountOfInstallments: number;
     installments: number;
     status: string;
+    modality: string;
     slug: string;
     createdOn: Date;
     modifiedOn: Date;
     esctopClientId: number;
     esctopClient: EsctopClient;
+    slugifyPost(): void;
 }

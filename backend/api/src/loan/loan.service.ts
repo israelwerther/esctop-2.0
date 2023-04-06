@@ -11,8 +11,10 @@ export class LoanService {
   }
 
   async create(createLoanDto: CreateLoanDto) {
-    const slug = createLoanDto.contractNumber;
-    return await this.repo.insert({ ...createLoanDto, slug });
+    const loan = new Loan();
+    Object.assign(loan, createLoanDto);
+    this.repo.create(loan);
+    return await this.repo.save(loan);    
   }
 
   async findAll() {

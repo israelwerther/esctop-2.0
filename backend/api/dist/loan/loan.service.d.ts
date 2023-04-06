@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 export declare class LoanService {
     private readonly repo;
     constructor(repo: Repository<Loan>);
-    create(createLoanDto: CreateLoanDto): Promise<import("typeorm").InsertResult>;
+    create(createLoanDto: CreateLoanDto): Promise<Loan>;
     findAll(): Promise<Loan[]>;
     findOne(id: number): Promise<Loan>;
     update(id: number, updateLoanDto: UpdateLoanDto): Promise<import("typeorm").UpdateResult>;

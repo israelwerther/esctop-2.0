@@ -1,12 +1,18 @@
 import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from "class-transformer";
+import slugify from "slugify";
+
+
 @Entity('loan')
 export class Loan {
     @PrimaryGeneratedColumn()
     id: number; // identificador único do empréstimo
-    @Column()
+
+    @Column({default: ''})
+    @Exclude()
     contractNumber: string; // número do contrato
+
     @Column()
     amount: number; // valor do empréstimo
     @Column()
@@ -19,6 +25,10 @@ export class Loan {
     installments: number // Parcelas
     @Column()
     status: string; // status do empréstimo (pago, em andamento, atrasado, etc.)
+
+    @Column({default: "0"})
+    modality: string //modalidade do empréstimo
+
     @Column()
     slug: string
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
@@ -37,5 +47,14 @@ export class Loan {
         referencedColumnName: 'id'
     })
     esctopClient: EsctopClient
+
+    @BeforeInsert()
+    slugifyPost(){
+        console.log("===================")
+        this.slug = slugify( this.status.substring(0, 20), {
+            lower: true,
+            replacement: '_'
+        });
+    }
 
 }

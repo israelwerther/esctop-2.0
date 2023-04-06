@@ -22,8 +22,10 @@ let LoanService = class LoanService {
         this.repo = repo;
     }
     async create(createLoanDto) {
-        const slug = createLoanDto.contractNumber;
-        return await this.repo.insert(Object.assign(Object.assign({}, createLoanDto), { slug }));
+        const loan = new loan_entity_1.Loan();
+        Object.assign(loan, createLoanDto);
+        this.repo.create(loan);
+        return await this.repo.save(loan);
     }
     async findAll() {
         return await this.repo.find();

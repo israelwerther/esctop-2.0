@@ -13,14 +13,23 @@ exports.Loan = void 0;
 const esctop_client_entity_1 = require("../../esctop-client/entities/esctop-client.entity");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
+const slugify_1 = require("slugify");
 let Loan = class Loan {
+    slugifyPost() {
+        console.log("===================");
+        this.slug = (0, slugify_1.default)(this.status.substring(0, 20), {
+            lower: true,
+            replacement: '_'
+        });
+    }
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Loan.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: '' }),
+    (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], Loan.prototype, "contractNumber", void 0);
 __decorate([
@@ -48,6 +57,10 @@ __decorate([
     __metadata("design:type", String)
 ], Loan.prototype, "status", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: "0" }),
+    __metadata("design:type", String)
+], Loan.prototype, "modality", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Loan.prototype, "slug", void 0);
@@ -74,6 +87,12 @@ __decorate([
     }),
     __metadata("design:type", esctop_client_entity_1.EsctopClient)
 ], Loan.prototype, "esctopClient", void 0);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Loan.prototype, "slugifyPost", null);
 Loan = __decorate([
     (0, typeorm_1.Entity)('loan')
 ], Loan);
