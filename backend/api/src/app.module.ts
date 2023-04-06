@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EsctopClientModule } from './esctop-client/esctop-client.module';
 import { LoanModule } from './loan/loan.module';
+import { CredcoopClientModule } from './credcoop-client/credcoop-client.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LoanModule } from './loan/loan.module';
       synchronize: true
     }),
     LoanModule,
+    CredcoopClientModule,
   ],
   controllers: [AppController],
   providers: [AppService],
