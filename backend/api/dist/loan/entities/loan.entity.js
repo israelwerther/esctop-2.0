@@ -15,12 +15,24 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const slugify_1 = require("slugify");
 let Loan = class Loan {
-    slugifyPost() {
-        console.log("===================");
+    slugifyLoan() {
+        console.log("=================== 1");
         this.slug = (0, slugify_1.default)(this.status.substring(0, 20), {
             lower: true,
             replacement: '_'
         });
+    }
+    createContractNumber() {
+        console.log("Entrou");
+        let modality;
+        if (this.online) {
+            modality = "1";
+        }
+        else {
+            modality = "0";
+        }
+        this.contractNumber = modality + modality;
+        console.log("Num Contract", this.contractNumber);
     }
 };
 __decorate([
@@ -57,9 +69,13 @@ __decorate([
     __metadata("design:type", String)
 ], Loan.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: "0" }),
-    __metadata("design:type", String)
-], Loan.prototype, "modality", void 0);
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], Loan.prototype, "inPerson", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], Loan.prototype, "online", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -92,7 +108,13 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], Loan.prototype, "slugifyPost", null);
+], Loan.prototype, "slugifyLoan", null);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Loan.prototype, "createContractNumber", null);
 Loan = __decorate([
     (0, typeorm_1.Entity)('loan')
 ], Loan);

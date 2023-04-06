@@ -15,24 +15,34 @@ export class Loan {
 
     @Column()
     amount: number; // valor do empréstimo
+
     @Column()
     interestRate: number; // taxa de juros
+
     @Column()
     startDate: Date; // data de início do empréstimo
+
     @Column()
     amountOfInstallments: number; // quantidade de prestações
+
     @Column()
     installments: number // Parcelas
+
     @Column()
     status: string; // status do empréstimo (pago, em andamento, atrasado, etc.)
+    
+    @Column()
+    inPerson: boolean //modalidade do empréstimo - presencial
 
-    @Column({default: "0"})
-    modality: string //modalidade do empréstimo
+    @Column()
+    online: boolean //modalidade do empréstimo - online
 
     @Column()
     slug: string
+
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     createdOn: Date
+
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
 
@@ -49,12 +59,26 @@ export class Loan {
     esctopClient: EsctopClient
 
     @BeforeInsert()
-    slugifyPost(){
-        console.log("===================")
+    slugifyLoan(){
+        console.log("=================== 1")
         this.slug = slugify( this.status.substring(0, 20), {
             lower: true,
             replacement: '_'
         });
+    }
+
+    @BeforeInsert()
+    createContractNumber(){
+        console.log("Entrou")
+        let modality: string
+
+        if(this.online){
+            modality = "1"
+        } else{
+            modality = "0"
+        }
+        this.contractNumber = modality+modality
+        console.log("Num Contract", this.contractNumber)
     }
 
 }

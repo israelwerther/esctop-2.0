@@ -6,4 +6,7 @@ export class CreateLoanDto {
     amountOfInstallments: number;
     installments: number
     status: string;
+    inPerson: boolean;
+    online: boolean;
+    
 }
