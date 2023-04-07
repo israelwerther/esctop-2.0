@@ -11,8 +11,10 @@ export class EsctopClientService {
   }
 
   async create(createEsctopClientDto: CreateEsctopClientDto) {
-    const slug = createEsctopClientDto.corporateName.split(" ").join('_').toLowerCase();
-    return await this.repo.insert({ ...createEsctopClientDto, slug });
+    const esctopClient = new EsctopClient();
+    Object.assign(esctopClient, createEsctopClientDto);
+    this.repo.create(esctopClient);
+    return await this.repo.save(esctopClient);
   }
 
   async findAll() {

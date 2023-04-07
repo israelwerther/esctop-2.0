@@ -1,1 +1,4 @@
-export class CreateCredcoopClientDto {}
+export class CreateCredcoopClientDto {
+    nome: string;
+    cpf: string;
+}

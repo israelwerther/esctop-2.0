@@ -5,7 +5,7 @@ import { EsctopClient } from './entities/esctop-client.entity';
 export declare class EsctopClientService {
     private readonly repo;
     constructor(repo: Repository<EsctopClient>);
-    create(createEsctopClientDto: CreateEsctopClientDto): Promise<import("typeorm").InsertResult>;
+    create(createEsctopClientDto: CreateEsctopClientDto): Promise<EsctopClient>;
     findAll(): Promise<EsctopClient[]>;
     findOne(id: number): Promise<EsctopClient>;
     update(id: number, updateEsctopClientDto: UpdateEsctopClientDto): Promise<import("typeorm").UpdateResult>;

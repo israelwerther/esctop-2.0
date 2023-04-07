@@ -12,42 +12,42 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EsctopClientService = void 0;
+exports.CredcoopClientService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const credcoop_client_entity_1 = require("./entities/credcoop-client.entity");
 const typeorm_2 = require("typeorm");
-const esctop_client_entity_1 = require("./entities/esctop-client.entity");
-let EsctopClientService = class EsctopClientService {
+let CredcoopClientService = class CredcoopClientService {
     constructor(repo) {
         this.repo = repo;
     }
-    async create(createEsctopClientDto) {
-        const esctopClient = new esctop_client_entity_1.EsctopClient();
-        Object.assign(esctopClient, createEsctopClientDto);
-        this.repo.create(esctopClient);
-        return await this.repo.save(esctopClient);
+    async create(createCredcoopClientDto) {
+        const credcoopClient = new credcoop_client_entity_1.CredcoopClient();
+        Object.assign(credcoopClient, createCredcoopClientDto);
+        this.repo.create(credcoopClient);
+        return await this.repo.save(credcoopClient);
     }
     async findAll() {
         return await this.repo.find();
     }
     async findOne(id) {
-        const esctopClient = await this.repo.findOne({ where: { id } });
-        if (!esctopClient) {
-            throw new common_1.BadRequestException('Client esctop not found');
+        const credcoopClient = await this.repo.findOne({ where: { id } });
+        if (!credcoopClient) {
+            throw new common_1.BadRequestException('Credcoop Client not found');
         }
-        return esctopClient;
+        return credcoopClient;
     }
-    async update(id, updateEsctopClientDto) {
-        return await this.repo.update(id, updateEsctopClientDto);
+    async update(id, updateCredcoopClientDto) {
+        return this.repo.update(id, updateCredcoopClientDto);
     }
     async remove(id) {
-        return await this.repo.delete(id);
+        return this.repo.delete(id);
     }
 };
-EsctopClientService = __decorate([
+CredcoopClientService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(esctop_client_entity_1.EsctopClient)),
+    __param(0, (0, typeorm_1.InjectRepository)(credcoop_client_entity_1.CredcoopClient)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], EsctopClientService);
-exports.EsctopClientService = EsctopClientService;
-//# sourceMappingURL=esctop-client.service.js.map
+], CredcoopClientService);
+exports.CredcoopClientService = CredcoopClientService;
+//# sourceMappingURL=credcoop-client.service.js.map

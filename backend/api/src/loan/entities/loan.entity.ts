@@ -1,7 +1,8 @@
-import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from "class-transformer";
 import slugify from "slugify";
+import { CredcoopClient } from "src/credcoop-client/entities/credcoop-client.entity";
+import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
 
 
 @Entity('loan')
@@ -46,6 +47,20 @@ export class Loan {
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
 
+    // CREDCOOP CLIENT
+    @Column({ default: 1 })
+    @Exclude()
+    credcoopClientId: number;
+    @ManyToOne(() => CredcoopClient, (credcoopClient) => credcoopClient.loans, {
+        eager: true
+    })
+    @JoinColumn({
+        name: 'credcoopClientId',
+        referencedColumnName: 'id'
+    })
+    credcoopClient: CredcoopClient
+
+    // ESCTOP CLIENT
     @Column({ default: 1 })
     @Exclude()
     esctopClientId: number;

@@ -13,6 +13,7 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const esctop_client_module_1 = require("./esctop-client/esctop-client.module");
 const loan_module_1 = require("./loan/loan.module");
+const credcoop_client_module_1 = require("./credcoop-client/credcoop-client.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -30,6 +31,7 @@ AppModule = __decorate([
                 synchronize: true
             }),
             loan_module_1.LoanModule,
+            credcoop_client_module_1.CredcoopClientModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

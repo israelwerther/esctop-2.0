@@ -10,10 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Loan = void 0;
-const esctop_client_entity_1 = require("../../esctop-client/entities/esctop-client.entity");
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const slugify_1 = require("slugify");
+const credcoop_client_entity_1 = require("../../credcoop-client/entities/credcoop-client.entity");
+const esctop_client_entity_1 = require("../../esctop-client/entities/esctop-client.entity");
 let Loan = class Loan {
     slugifyLoan() {
         console.log("=================== 1");
@@ -88,6 +89,21 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Loan.prototype, "modifiedOn", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: 1 }),
+    (0, class_transformer_1.Exclude)(),
+    __metadata("design:type", Number)
+], Loan.prototype, "credcoopClientId", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => credcoop_client_entity_1.CredcoopClient, (credcoopClient) => credcoopClient.loans, {
+        eager: true
+    }),
+    (0, typeorm_1.JoinColumn)({
+        name: 'credcoopClientId',
+        referencedColumnName: 'id'
+    }),
+    __metadata("design:type", credcoop_client_entity_1.CredcoopClient)
+], Loan.prototype, "credcoopClient", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: 1 }),
     (0, class_transformer_1.Exclude)(),

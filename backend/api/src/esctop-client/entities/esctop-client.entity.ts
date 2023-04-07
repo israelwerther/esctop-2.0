@@ -1,5 +1,6 @@
 import { Loan } from "src/loan/entities/loan.entity"
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import slugify from "slugify"
 
 @Entity('esctopClient')
 export class EsctopClient {
@@ -27,4 +28,13 @@ export class EsctopClient {
 
     @OneToMany(() => Loan, (loan) => loan.esctopClient)
     loans: Loan[]
+
+    @BeforeInsert()
+    slugifyLoan(){
+        console.log("Slug my esctop")
+        this.slug = slugify( this.fantasyName.substring(0, 20), {
+            lower: true,
+            replacement: '_'
+        });
+    }
 }
