@@ -24,14 +24,17 @@ let CredcoopClientController = class CredcoopClientController {
     create(createCredcoopClientDto) {
         return this.credcoopClientService.create(createCredcoopClientDto);
     }
-    findAll() {
-        return this.credcoopClientService.findAll();
+    findAll(name, cpf) {
+        return this.credcoopClientService.findAll(name, cpf);
     }
     findOne(id) {
         return this.credcoopClientService.findOne(+id);
     }
-    update(id, updateCredcoopClientDto) {
-        return this.credcoopClientService.update(+id, updateCredcoopClientDto);
+    findBySlug(slug) {
+        return this.credcoopClientService.findBySlug(slug);
+    }
+    update(slug, updateCredcoopClientDto) {
+        return this.credcoopClientService.update(slug, updateCredcoopClientDto);
     }
     remove(id) {
         return this.credcoopClientService.remove(+id);
@@ -46,9 +49,11 @@ __decorate([
 ], CredcoopClientController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('name')),
+    __param(1, (0, common_1.Query)('cpf')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
 ], CredcoopClientController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -58,8 +63,15 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CredcoopClientController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('/slug/:slug'),
+    __param(0, (0, common_1.Param)('slug')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], CredcoopClientController.prototype, "findBySlug", null);
+__decorate([
+    (0, common_1.Patch)(':slug'),
+    __param(0, (0, common_1.Param)('slug')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_credcoop_client_dto_1.UpdateCredcoopClientDto]),

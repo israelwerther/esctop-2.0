@@ -6,8 +6,12 @@ export declare class CredcoopClientService {
     private readonly repo;
     constructor(repo: Repository<CredcoopClient>);
     create(createCredcoopClientDto: CreateCredcoopClientDto): Promise<CredcoopClient>;
-    findAll(): Promise<CredcoopClient[]>;
+    findAll(name?: string, cpf?: string): Promise<CredcoopClient[]>;
     findOne(id: number): Promise<CredcoopClient>;
-    update(id: number, updateCredcoopClientDto: UpdateCredcoopClientDto): Promise<import("typeorm").UpdateResult>;
-    remove(id: number): Promise<import("typeorm").DeleteResult>;
+    findBySlug(slug: string): Promise<CredcoopClient>;
+    update(slug: string, updateCredcoopClientDto: UpdateCredcoopClientDto): Promise<CredcoopClient>;
+    remove(id: number): Promise<{
+        success: boolean;
+        credcoopClient: CredcoopClient;
+    }>;
 }

@@ -1,7 +1,7 @@
 import { Loan } from "src/loan/entities/loan.entity";
 export declare class CredcoopClient {
     id: number;
-    nome: string;
+    name: string;
     cpf: string;
     slug: string;
     createdOn: Date;

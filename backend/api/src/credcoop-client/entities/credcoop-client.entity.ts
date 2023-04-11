@@ -3,15 +3,19 @@ import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 
 import slugify from "slugify"
 @Entity('credcoopClient')
 export class CredcoopClient {
+
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
+
     @Column()
-    nome: string
+    name: string;
+
     @Column()
-    cpf: string
+    cpf: string;
     
     @Column()
-    slug: string
+    slug: string;
+    
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     createdOn: Date
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
@@ -22,10 +26,11 @@ export class CredcoopClient {
 
     @BeforeInsert()
     slugifyLoan(){
-        console.log("=================== 1")
-        this.slug = slugify( this.nome.substring(0, 20), {
+        console.log("SLUG 1")
+        this.slug = slugify( this.name.substring(0, 20), {
             lower: true,
             replacement: '_'
         });
+        console.log("SLUG 2", this.slug)
     }
 }

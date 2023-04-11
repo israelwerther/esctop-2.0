@@ -15,11 +15,12 @@ const typeorm_1 = require("typeorm");
 const slugify_1 = require("slugify");
 let CredcoopClient = class CredcoopClient {
     slugifyLoan() {
-        console.log("=================== 1");
-        this.slug = (0, slugify_1.default)(this.nome.substring(0, 20), {
+        console.log("SLUG 1");
+        this.slug = (0, slugify_1.default)(this.name.substring(0, 20), {
             lower: true,
             replacement: '_'
         });
+        console.log("SLUG 2", this.slug);
     }
 };
 __decorate([
@@ -29,7 +30,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], CredcoopClient.prototype, "nome", void 0);
+], CredcoopClient.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

@@ -1,4 +1,4 @@
 export declare class CreateCredcoopClientDto {
-    nome: string;
+    name: string;
     cpf: string;
 }

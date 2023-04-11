@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CredcoopClientService } from './credcoop-client.service';
 import { CreateCredcoopClientDto } from './dto/create-credcoop-client.dto';
 import { UpdateCredcoopClientDto } from './dto/update-credcoop-client.dto';
+import { CredcoopClient } from './entities/credcoop-client.entity';
 
 @Controller('credcoop-client')
 export class CredcoopClientController {
@@ -13,8 +14,8 @@ export class CredcoopClientController {
   }
 
   @Get()
-  findAll() {
-    return this.credcoopClientService.findAll();
+  findAll(@Query('name') name?: string, @Query('cpf') cpf?: string): Promise<CredcoopClient[]> {
+    return this.credcoopClientService.findAll(name, cpf);
   }
 
   @Get(':id')
@@ -22,9 +23,14 @@ export class CredcoopClientController {
     return this.credcoopClientService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCredcoopClientDto: UpdateCredcoopClientDto) {
-    return this.credcoopClientService.update(+id, updateCredcoopClientDto);
+  @Get('/slug/:slug')
+  findBySlug(@Param('slug') slug: string) {
+    return this.credcoopClientService.findBySlug(slug);
+  }
+
+  @Patch(':slug')
+  update(@Param('slug') slug: string, @Body() updateCredcoopClientDto: UpdateCredcoopClientDto) {
+    return this.credcoopClientService.update(slug, updateCredcoopClientDto);
   }
 
   @Delete(':id')
