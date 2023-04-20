@@ -24,11 +24,14 @@ let EsctopClientController = class EsctopClientController {
     create(createEsctopClientDto) {
         return this.esctopClientService.create(createEsctopClientDto);
     }
-    findAll() {
-        return this.esctopClientService.findAll();
+    findAll(corporateName) {
+        return this.esctopClientService.findAll(corporateName);
     }
     findOne(id) {
         return this.esctopClientService.findOne(+id);
+    }
+    findBySlug(slug) {
+        return this.esctopClientService.findBySlug(slug);
     }
     update(id, updateEsctopClientDto) {
         return this.esctopClientService.update(+id, updateEsctopClientDto);
@@ -46,9 +49,10 @@ __decorate([
 ], EsctopClientController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('corporateName')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
 ], EsctopClientController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -57,6 +61,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], EsctopClientController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)('/slug/:slug'),
+    __param(0, (0, common_1.Param)('slug')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], EsctopClientController.prototype, "findBySlug", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),

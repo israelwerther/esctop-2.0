@@ -17,8 +17,14 @@ export class EsctopClientService {
     return await this.repo.save(esctopClient);
   }
 
-  async findAll() {
-    return await this.repo.find();
+  async findAll(corporateName?: string) {
+    const queryBuilder = this.repo.createQueryBuilder('esctopClient');
+
+    if (corporateName) {
+      queryBuilder.andWhere('esctopClient.corporateName LIKE :corporateName', { corporateName: `%${corporateName}%` });
+    }
+
+    return await queryBuilder.getMany();
   }
 
   async findOne(id: number) {
@@ -29,8 +35,18 @@ export class EsctopClientService {
     return esctopClient;
   }
 
-  async update(id: number, updateEsctopClientDto: UpdateEsctopClientDto) {
-    return await this.repo.update(id, updateEsctopClientDto);
+  async findBySlug(slug: string) {
+    try {
+      const esctopClient = await this.repo.findOneOrFail({where:{slug}});
+      return esctopClient;
+    } catch (err) {
+      throw new BadRequestException(`Esctop Client with slug ${slug} not found`);
+    }
+  }
+
+  async update(slug: string,updateEsctopClientDto: UpdateEsctopClientDto) {
+    const esctopClient = await this.repo.findOne({where:{slug}});
+    
   }
 
   async remove(id: number) {

@@ -6,8 +6,9 @@ export declare class EsctopClientService {
     private readonly repo;
     constructor(repo: Repository<EsctopClient>);
     create(createEsctopClientDto: CreateEsctopClientDto): Promise<EsctopClient>;
-    findAll(): Promise<EsctopClient[]>;
+    findAll(corporateName?: string): Promise<EsctopClient[]>;
     findOne(id: number): Promise<EsctopClient>;
-    update(id: number, updateEsctopClientDto: UpdateEsctopClientDto): Promise<import("typeorm").UpdateResult>;
+    findBySlug(slug: string): Promise<EsctopClient>;
+    update(slug: string, updateEsctopClientDto: UpdateEsctopClientDto): Promise<void>;
     remove(id: number): Promise<import("typeorm").DeleteResult>;
 }
