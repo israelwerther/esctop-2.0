@@ -6,6 +6,8 @@ import { CredcoopClient } from './entities/credcoop-client.entity';
 import { Repository } from 'typeorm';
 import { Loan } from 'src/loan/entities/loan.entity';
 
+const entityName = "Credcoop Client";
+
 @Injectable()
 export class CredcoopClientService {
   constructor(@InjectRepository(CredcoopClient) private readonly repo: Repository<CredcoopClient>){    
@@ -35,7 +37,7 @@ export class CredcoopClientService {
   async findOne(id: number) {
     const credcoopClient = await this.repo.findOne({where:{id}});
     if (!credcoopClient) {
-      throw new BadRequestException('Credcoop Client not found');
+      throw new BadRequestException(`${entityName} not found`);
     }
     return credcoopClient;
   }
@@ -47,7 +49,7 @@ export class CredcoopClientService {
       return credcoopClient;
     } catch (err) {
       console.log("here 2")
-      throw new BadRequestException(`Credcoop Client with slug ${slug} not found`);
+      throw new BadRequestException(`${entityName} with slug ${slug} not found`);
     }
   }
 
@@ -55,7 +57,7 @@ export class CredcoopClientService {
     const credcoopClient = await this.repo.findOne({where:{slug}});
 
     if (!credcoopClient) {
-      throw new BadRequestException("credcoopClient not found");
+      throw new BadRequestException(`${entityName} not found`);
     }
 
     credcoopClient.modifiedOn = new Date(Date.now());
@@ -67,7 +69,7 @@ export class CredcoopClientService {
     const credcoopClient = await this.repo.findOne({where:{id}});
 
     if (!credcoopClient) {
-      throw new BadRequestException("Credcoop Client not found");
+      throw new BadRequestException(`${entityName} not found`);
     }
 
     await this.repo.remove(credcoopClient);

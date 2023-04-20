@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const credcoop_client_entity_1 = require("./entities/credcoop-client.entity");
 const typeorm_2 = require("typeorm");
+const entityName = "Credcoop Client";
 let CredcoopClientService = class CredcoopClientService {
     constructor(repo) {
         this.repo = repo;
@@ -40,7 +41,7 @@ let CredcoopClientService = class CredcoopClientService {
     async findOne(id) {
         const credcoopClient = await this.repo.findOne({ where: { id } });
         if (!credcoopClient) {
-            throw new common_1.BadRequestException('Credcoop Client not found');
+            throw new common_1.BadRequestException(`${entityName} not found`);
         }
         return credcoopClient;
     }
@@ -52,13 +53,13 @@ let CredcoopClientService = class CredcoopClientService {
         }
         catch (err) {
             console.log("here 2");
-            throw new common_1.BadRequestException(`Credcoop Client with slug ${slug} not found`);
+            throw new common_1.BadRequestException(`${entityName} with slug ${slug} not found`);
         }
     }
     async update(slug, updateCredcoopClientDto) {
         const credcoopClient = await this.repo.findOne({ where: { slug } });
         if (!credcoopClient) {
-            throw new common_1.BadRequestException("credcoopClient not found");
+            throw new common_1.BadRequestException(`${entityName} not found`);
         }
         credcoopClient.modifiedOn = new Date(Date.now());
         Object.assign(credcoopClient, updateCredcoopClientDto);
@@ -67,7 +68,7 @@ let CredcoopClientService = class CredcoopClientService {
     async remove(id) {
         const credcoopClient = await this.repo.findOne({ where: { id } });
         if (!credcoopClient) {
-            throw new common_1.BadRequestException("Credcoop Client not found");
+            throw new common_1.BadRequestException(`${entityName} not found`);
         }
         await this.repo.remove(credcoopClient);
         return { success: true, credcoopClient };

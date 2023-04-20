@@ -5,6 +5,8 @@ import { CreateEsctopClientDto } from './dto/create-esctop-client.dto';
 import { UpdateEsctopClientDto } from './dto/update-esctop-client.dto';
 import { EsctopClient } from './entities/esctop-client.entity';
 
+const entityName = "Esctop Client";
+
 @Injectable()
 export class EsctopClientService {
   constructor(@InjectRepository(EsctopClient) private readonly repo: Repository<EsctopClient>){    
@@ -30,7 +32,7 @@ export class EsctopClientService {
   async findOne(id: number) {
     const esctopClient = await this.repo.findOne({where: {id}});
     if(!esctopClient){
-      throw new BadRequestException('Client esctop not found');
+      throw new BadRequestException(`${entityName} not found`);
     }
     return esctopClient;
   }
@@ -40,16 +42,30 @@ export class EsctopClientService {
       const esctopClient = await this.repo.findOneOrFail({where:{slug}});
       return esctopClient;
     } catch (err) {
-      throw new BadRequestException(`Esctop Client with slug ${slug} not found`);
+      throw new BadRequestException(`${entityName} with slug ${slug} not found`);
     }
   }
 
   async update(slug: string,updateEsctopClientDto: UpdateEsctopClientDto) {
     const esctopClient = await this.repo.findOne({where:{slug}});
-    
+
+    if (!esctopClient) {
+      throw new BadRequestException(`${entityName} not found`)
+    }
+
+    esctopClient.modifiedOn = new Date(Date.now());
+    Object.assign(esctopClient, updateEsctopClientDto);
+    return this.repo.save(esctopClient);
   }
 
   async remove(id: number) {
-    return await this.repo.delete(id);
+    const esctopClient = await this.repo.findOne({where:{id}});
+
+    if (!esctopClient) {
+      throw new BadRequestException(`${entityName} not found`);
+    }
+
+    await this.repo.remove(esctopClient);
+    return {success: true, esctopClient};
   }
 }

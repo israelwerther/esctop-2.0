@@ -28,9 +28,9 @@ export class EsctopClientController {
     return this.esctopClientService.findBySlug(slug);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEsctopClientDto: UpdateEsctopClientDto) {
-    return this.esctopClientService.update(+id, updateEsctopClientDto);
+  @Patch(':slug')
+  update(@Param('slug') slug: string, @Body() updateEsctopClientDto: UpdateEsctopClientDto) {
+    return this.esctopClientService.update(slug, updateEsctopClientDto);
   }
 
   @Delete(':id')

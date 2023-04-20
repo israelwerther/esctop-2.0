@@ -9,6 +9,9 @@ export declare class EsctopClientService {
     findAll(corporateName?: string): Promise<EsctopClient[]>;
     findOne(id: number): Promise<EsctopClient>;
     findBySlug(slug: string): Promise<EsctopClient>;
-    update(slug: string, updateEsctopClientDto: UpdateEsctopClientDto): Promise<void>;
-    remove(id: number): Promise<import("typeorm").DeleteResult>;
+    update(slug: string, updateEsctopClientDto: UpdateEsctopClientDto): Promise<EsctopClient>;
+    remove(id: number): Promise<{
+        success: boolean;
+        esctopClient: EsctopClient;
+    }>;
 }

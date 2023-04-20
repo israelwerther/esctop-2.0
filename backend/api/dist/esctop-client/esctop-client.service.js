@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const esctop_client_entity_1 = require("./entities/esctop-client.entity");
+const entityName = "Esctop Client";
 let EsctopClientService = class EsctopClientService {
     constructor(repo) {
         this.repo = repo;
@@ -37,7 +38,7 @@ let EsctopClientService = class EsctopClientService {
     async findOne(id) {
         const esctopClient = await this.repo.findOne({ where: { id } });
         if (!esctopClient) {
-            throw new common_1.BadRequestException('Client esctop not found');
+            throw new common_1.BadRequestException(`${entityName} not found`);
         }
         return esctopClient;
     }
@@ -47,14 +48,25 @@ let EsctopClientService = class EsctopClientService {
             return esctopClient;
         }
         catch (err) {
-            throw new common_1.BadRequestException(`Esctop Client with slug ${slug} not found`);
+            throw new common_1.BadRequestException(`${entityName} with slug ${slug} not found`);
         }
     }
     async update(slug, updateEsctopClientDto) {
         const esctopClient = await this.repo.findOne({ where: { slug } });
+        if (!esctopClient) {
+            throw new common_1.BadRequestException(`${entityName} not found`);
+        }
+        esctopClient.modifiedOn = new Date(Date.now());
+        Object.assign(esctopClient, updateEsctopClientDto);
+        return this.repo.save(esctopClient);
     }
     async remove(id) {
-        return await this.repo.delete(id);
+        const esctopClient = await this.repo.findOne({ where: { id } });
+        if (!esctopClient) {
+            throw new common_1.BadRequestException(`${entityName} not found`);
+        }
+        await this.repo.remove(esctopClient);
+        return { success: true, esctopClient };
     }
 };
 EsctopClientService = __decorate([

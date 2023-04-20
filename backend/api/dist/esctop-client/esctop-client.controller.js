@@ -33,8 +33,8 @@ let EsctopClientController = class EsctopClientController {
     findBySlug(slug) {
         return this.esctopClientService.findBySlug(slug);
     }
-    update(id, updateEsctopClientDto) {
-        return this.esctopClientService.update(+id, updateEsctopClientDto);
+    update(slug, updateEsctopClientDto) {
+        return this.esctopClientService.update(slug, updateEsctopClientDto);
     }
     remove(id) {
         return this.esctopClientService.remove(+id);
@@ -69,8 +69,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], EsctopClientController.prototype, "findBySlug", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':slug'),
+    __param(0, (0, common_1.Param)('slug')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_esctop_client_dto_1.UpdateEsctopClientDto]),
