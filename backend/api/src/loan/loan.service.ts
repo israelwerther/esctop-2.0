@@ -5,6 +5,8 @@ import { Loan } from './entities/loan.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+const entityName = "Loan";
+
 @Injectable()
 export class LoanService {
   constructor(@InjectRepository(Loan) private readonly repo: Repository<Loan>){
@@ -17,12 +19,18 @@ export class LoanService {
     return await this.repo.save(loan);
   }
 
-  async findAll() {
-    return await this.repo.find();
+  async findAll(contractNumber?: string) {
+    const queryBuilder = this.repo.createQueryBuilder('loan');
+
+    if (contractNumber) {
+      queryBuilder.andWhere('loan.contractNumber LIKE :contractNumber', { contractNumber: `%${contractNumber}%` });
+    }
+
+    return await queryBuilder.getMany();
   }
 
   async findOne(id: number) {
-    const loan = await this.repo.findOne({where:{id}});
+    const loan = await this.repo.findOne({where:{id}})
     if (!loan) {
       throw new BadRequestException('Loan not found');
     }

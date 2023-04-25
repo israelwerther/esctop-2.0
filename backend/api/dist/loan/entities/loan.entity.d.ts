@@ -11,13 +11,11 @@ export declare class Loan {
     status: string;
     inPerson: boolean;
     online: boolean;
-    slug: string;
     createdOn: Date;
     modifiedOn: Date;
-    credcoopClientId: number;
+    credcoopClientIdteste: number;
     credcoopClient: CredcoopClient;
     esctopClientId: number;
     esctopClient: EsctopClient;
-    slugifyLoan(): void;
     createContractNumber(): void;
 }

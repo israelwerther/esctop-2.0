@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor, Query } from '@nestjs/common';
 import { LoanService } from './loan.service';
 import { CreateLoanDto } from './dto/create-loan.dto';
 import { UpdateLoanDto } from './dto/update-loan.dto';
+import { Loan } from './entities/loan.entity';
 
 @Controller('loan')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -14,8 +15,8 @@ export class LoanController {
   }
 
   @Get()
-  findAll() {
-    return this.loanService.findAll();
+  findAll(@Query('contractNumber') contractNumber?: string): Promise<Loan[]> {
+    return this.loanService.findAll(contractNumber);
   }
 
   @Get(':id')

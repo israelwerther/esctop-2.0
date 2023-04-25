@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const loan_entity_1 = require("./entities/loan.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const entityName = "Loan";
 let LoanService = class LoanService {
     constructor(repo) {
         this.repo = repo;
@@ -27,8 +28,12 @@ let LoanService = class LoanService {
         this.repo.create(loan);
         return await this.repo.save(loan);
     }
-    async findAll() {
-        return await this.repo.find();
+    async findAll(contractNumber) {
+        const queryBuilder = this.repo.createQueryBuilder('loan');
+        if (contractNumber) {
+            queryBuilder.andWhere('loan.contractNumber LIKE :contractNumber', { contractNumber: `%${contractNumber}%` });
+        }
+        return await queryBuilder.getMany();
     }
     async findOne(id) {
         const loan = await this.repo.findOne({ where: { id } });

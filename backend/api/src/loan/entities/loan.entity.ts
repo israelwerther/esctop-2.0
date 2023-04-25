@@ -1,6 +1,5 @@
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from "class-transformer";
-import slugify from "slugify";
 import { CredcoopClient } from "src/credcoop-client/entities/credcoop-client.entity";
 import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
 
@@ -8,11 +7,10 @@ import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
 @Entity('loan')
 export class Loan {
     @PrimaryGeneratedColumn()
-    id: number; // identificador único do empréstimo
+    id: number;
 
-    @Column({default: ''})
-    @Exclude()
-    contractNumber: string; // número do contrato
+    @Column()
+    contractNumber: string;
 
     @Column()
     amount: number; // valor do empréstimo
@@ -38,9 +36,6 @@ export class Loan {
     @Column()
     online: boolean //modalidade do empréstimo - online
 
-    @Column()
-    slug: string
-
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     createdOn: Date
 
@@ -48,20 +43,20 @@ export class Loan {
     modifiedOn: Date
 
     // CREDCOOP CLIENT
-    @Column({ default: 1 })
-    @Exclude()
-    credcoopClientId: number;
+    @Column({nullable: true})
+    // @Exclude()
+    credcoopClientIdteste: number;
     @ManyToOne(() => CredcoopClient, (credcoopClient) => credcoopClient.loans, {
-        eager: true
+        eager: true,
     })
     @JoinColumn({
-        name: 'credcoopClientId',
+        name: 'credcoopClientIdteste',
         referencedColumnName: 'id'
     })
     credcoopClient: CredcoopClient
 
     // ESCTOP CLIENT
-    @Column({ default: 1 })
+    @Column({ nullable: true })
     @Exclude()
     esctopClientId: number;
     @ManyToOne(() => EsctopClient, (esctopClient) => esctopClient.loans, {
@@ -74,17 +69,7 @@ export class Loan {
     esctopClient: EsctopClient
 
     @BeforeInsert()
-    slugifyLoan(){
-        console.log("=================== 1")
-        this.slug = slugify( this.status.substring(0, 20), {
-            lower: true,
-            replacement: '_'
-        });
-    }
-
-    @BeforeInsert()
     createContractNumber(){
-        console.log("Entrou")
         let modality: string
 
         if(this.online){
@@ -93,7 +78,6 @@ export class Loan {
             modality = "0"
         }
         this.contractNumber = modality+modality
-        console.log("Num Contract", this.contractNumber)
     }
 
 }

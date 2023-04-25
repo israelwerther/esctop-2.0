@@ -24,8 +24,8 @@ let LoanController = class LoanController {
     create(createLoanDto) {
         return this.loanService.create(createLoanDto);
     }
-    findAll() {
-        return this.loanService.findAll();
+    findAll(contractNumber) {
+        return this.loanService.findAll(contractNumber);
     }
     findOne(id) {
         return this.loanService.findOne(+id);
@@ -46,9 +46,10 @@ __decorate([
 ], LoanController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('contractNumber')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
 ], LoanController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
