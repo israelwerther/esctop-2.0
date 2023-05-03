@@ -13,7 +13,7 @@ export declare class Loan {
     online: boolean;
     createdOn: Date;
     modifiedOn: Date;
-    credcoopClientIdteste: number;
+    credcoopClientId: number;
     credcoopClient: CredcoopClient;
     esctopClientId: number;
     esctopClient: EsctopClient;

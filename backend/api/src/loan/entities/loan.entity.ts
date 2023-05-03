@@ -1,7 +1,8 @@
-import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { AfterInsert, BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from "class-transformer";
 import { CredcoopClient } from "src/credcoop-client/entities/credcoop-client.entity";
 import { EsctopClient } from "src/esctop-client/entities/esctop-client.entity";
+import { utcToZonedTime } from 'date-fns-tz';
 
 
 @Entity('loan')
@@ -9,7 +10,7 @@ export class Loan {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({default: ""})
     contractNumber: string;
 
     @Column()
@@ -29,11 +30,11 @@ export class Loan {
 
     @Column()
     status: string; // status do empréstimo (pago, em andamento, atrasado, etc.)
-    
-    @Column()
+
+    @Column({default: true})
     inPerson: boolean //modalidade do empréstimo - presencial
 
-    @Column()
+    @Column({default: false})
     online: boolean //modalidade do empréstimo - online
 
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
@@ -42,23 +43,26 @@ export class Loan {
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     modifiedOn: Date
 
+
     // CREDCOOP CLIENT
     @Column({nullable: true})
-    // @Exclude()
-    credcoopClientIdteste: number;
+    @Exclude()
+    credcoopClientId: number;
     @ManyToOne(() => CredcoopClient, (credcoopClient) => credcoopClient.loans, {
         eager: true,
     })
     @JoinColumn({
-        name: 'credcoopClientIdteste',
+        name: 'credcoopClientId',
         referencedColumnName: 'id'
     })
     credcoopClient: CredcoopClient
 
+    
     // ESCTOP CLIENT
-    @Column({ nullable: true })
+    @Column({nullable: true})
     @Exclude()
     esctopClientId: number;
+    
     @ManyToOne(() => EsctopClient, (esctopClient) => esctopClient.loans, {
         eager: true
     })
@@ -68,16 +72,25 @@ export class Loan {
     })
     esctopClient: EsctopClient
 
+
     @BeforeInsert()
     createContractNumber(){
-        let modality: string
-
-        if(this.online){
-            modality = "1"
-        } else{
-            modality = "0"
+        const modality = this.inPerson ? '0' : '1';
+        const clientType = this.credcoopClientId ? '0' : '1';
+        let dayOfMonth = '';        
+        let date = utcToZonedTime(this.startDate, 'America/Sao_Paulo');
+        date = new Date();
+        
+        if (!isNaN(date.getTime())) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear().toString();
+            dayOfMonth = year + month + day;
+        } else {
+            console.error('Invalid startDate format');
         }
-        this.contractNumber = modality+modality
+        
+        this.contractNumber = modality + clientType + dayOfMonth;
     }
-
+    
 }

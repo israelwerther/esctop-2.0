@@ -8,5 +8,4 @@ export class CreateLoanDto {
     status: string;
     inPerson: boolean;
     online: boolean;
-    
 }

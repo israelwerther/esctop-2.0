@@ -4,7 +4,7 @@ import { CreateLoanDto } from './dto/create-loan.dto';
 import { UpdateLoanDto } from './dto/update-loan.dto';
 import { Loan } from './entities/loan.entity';
 
-@Controller('loan')
+@Controller('loans')
 @UseInterceptors(ClassSerializerInterceptor)
 export class LoanController {
   constructor(private readonly loanService: LoanService) {}

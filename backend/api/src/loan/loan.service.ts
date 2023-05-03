@@ -16,6 +16,7 @@ export class LoanService {
     const loan = new Loan();
     Object.assign(loan, createLoanDto);
     this.repo.create(loan);
+    console.log("createLoanDto = ",)
     return await this.repo.save(loan);
   }
 
